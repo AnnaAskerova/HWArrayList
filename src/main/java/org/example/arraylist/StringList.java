@@ -87,38 +87,27 @@ public class StringList implements StringListInterface {
 
     @Override
     public boolean contains(String item) {
-        boolean flag = false;
-        for (int i = 0; i < size; i++) {
-            if (array[i].equals(item)) {
-                flag = true;
-                break;
-            }
-        }
-        return flag;
+        return indexOf(item) != -1;
     }
 
     @Override
     public int indexOf(String item) {
-        int index = -1;
         for (int i = 0; i < size; i++) {
             if (array[i].equals(item)) {
-                index = i;
-                break;
+                return i;
             }
         }
-        return index;
+        return -1;
     }
 
     @Override
     public int lastIndexOf(String item) {
-        int index = -1;
         for (int i = size - 1; i > -1; i--) {
             if (array[i].equals(item)) {
-                index = i;
-                break;
+                return i;
             }
         }
-        return index;
+        return -1;
     }
 
     @Override
@@ -165,4 +154,6 @@ public class StringList implements StringListInterface {
         System.arraycopy(array, 0, result, 0, size);
         return result;
     }
+
+
 }
