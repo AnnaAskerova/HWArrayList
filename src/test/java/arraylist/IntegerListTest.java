@@ -35,7 +35,7 @@ class IntegerListTest {
         try {
             Field field = IntegerList.class.getDeclaredField("capacity");
             field.setAccessible(true);
-            Method method = IntegerList.class.getDeclaredMethod("increase", null);
+            Method method = IntegerList.class.getDeclaredMethod("grow");
             method.setAccessible(true);
             method.invoke(integerList);
             assertEquals(5, field.getInt(integerList));
@@ -177,18 +177,19 @@ class IntegerListTest {
     }
 
     @Test
-    void sortSelection() {
+    void sort() {
         Integer[] excepted = new Integer[]{FIRST, SECOND, EXCEPTED};
         integerList.add(0, EXCEPTED);
+        Integer[] arr = integerList.toArray();
         try {
-            Method method = IntegerList.class.getDeclaredMethod("sortSelection");
+            Method method = IntegerList.class.getDeclaredMethod("quickSort", Integer[].class, int.class, int.class);
             method.setAccessible(true);
-            method.invoke(integerList);
+            method.invoke(integerList, arr, 0, arr.length - 1);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-        assertArrayEquals(excepted, integerList.toArray());
+        assertArrayEquals(excepted, arr);
     }
 
     @Test
